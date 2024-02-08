@@ -2,6 +2,10 @@ import {Department, Lector} from "@/components/model/model";
 import {GrUpgrade} from "react-icons/gr";
 import {lusitana} from "@/app/ui/fonts";
 import {ChangeEvent, Dispatch} from "react";
+import LectorNameInput from "@/components/lectorNameInput";
+import clsx from "clsx";
+import {config} from "@/components/Constants";
+import {apiInstance} from "@/components/axiosInstance";
 
 
 export default function DepartmentContainer({department, updateDepartment}: {
@@ -9,22 +13,14 @@ export default function DepartmentContainer({department, updateDepartment}: {
     updateDepartment: Dispatch<any>
 }) {
 
-    const updateName = (e: ChangeEvent<HTMLInputElement>, lectorId: number) => {
-
-        const payload = {
-            departmentId : department.id,
-            lectorId: lectorId,
-            value: e.target.value
-        };
-
-
-        return updateDepartment(
-            {
-                type: "update",
-                payload
+    const updateDegree = (lector: Lector) => {
+        apiInstance.put(`lector/${lector.id}/promote`).then(
+            res => {
+                //todo update general state
             }
-        );
+        )
     }
+
     return (
         <div
             className="w-[350px] block rounded-lg bg-white p-6 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700">
@@ -37,15 +33,16 @@ export default function DepartmentContainer({department, updateDepartment}: {
                 {
                     department.lectors.map(lector =>
                         <div key={lector.id} className="flex justify-between">
-                            <input type="text"
-                                   className="border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:border-blue-500"
-                                   value={lector.name}
-                                   onChange={(e) => {
-                                       updateName(e, lector.id)
-                                   }}
+                            <LectorNameInput lector={lector} updateDepartment={updateDepartment}/>
+                            <button
+                                className={clsx(
+                                    "rounded-md  py-3 px-4 m-2",
+                                    lector.degreeId < config.maxDegreeCount && "bg-green-100 text-green-800",
+                                    lector.degreeId === undefined || lector.degreeId >= config.maxDegreeCount && "bg-gray-100 text-gray-600 disabled"
+                                )}
+                                onClick={() => updateDegree(lector)}
                             >
-                            </input>
-                            <button className="bg-green-100 text-green-800 rounded-md  py-3 px-4 m-2"><GrUpgrade/>
+                                <GrUpgrade/>
                             </button>
                         </div>
                     )

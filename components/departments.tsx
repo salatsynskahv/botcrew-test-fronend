@@ -1,23 +1,11 @@
 "use client"
 
-import {config} from "@/components/Constants";
 import {useEffect, useReducer, useState} from "react";
-import axios from "axios";
 import DepartmentContainer from "@/components/departmentContainer";
-import {Department, Lector} from "@/components/model/model";
+import {Department} from "@/components/model/model";
+import {apiInstance} from "@/components/axiosInstance";
 
-// async function getData() {
-//     const res= await fetch(`${config.url.API_BASE_URL}/department/all`);
-//     // The return value is *not* serialized
-//     // You can return Date, Map, Set, etc.
-//
-//     if (!res.ok) {
-//         // This will activate the closest `error.js` Error Boundary
-//         throw new Error('Failed to fetch data')
-//     }
-//
-//     return res.json()
-// }
+
 
 function reducer(state: Department[] | null, action: any) {
     const payload = action.payload;
@@ -27,7 +15,7 @@ function reducer(state: Department[] | null, action: any) {
     if (action.type === 'update') {
         if (state !== null) {
             const updatedDepartments = state.map(department => {
-                if (department.id === payload.departmentId) {
+                if (payload.departmentIds.includes(department.id)) {
                     return {
                         ...department,
                         lectors: department.lectors.map(lector => {
@@ -55,9 +43,8 @@ export default function Departments() {
     const [departments, dispatch] = useReducer(reducer, null);
     const [isLoading, setIsLoading] = useState(true);
     useEffect(() => {
-        axios.get(`${config.url.API_BASE_URL}/department/all`)
+        apiInstance.get('/department/all')
             .then(res => {
-                console.log(res);
                 dispatch({type: "init", payload: res.data});
                 setIsLoading(false);
             })

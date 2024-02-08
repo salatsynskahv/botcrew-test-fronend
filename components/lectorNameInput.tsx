@@ -28,14 +28,14 @@ export default function LectorNameInput({lector, updateDepartment}: {lector: Lec
     const debouncedValue = useDebounce(lectorName);
 
     const params = { name: debouncedValue };
-    // useEffect(() => {
-    //     if(debouncedValue) {
-    //     apiInstance.put(`lector/${lector.id}/update`, null, {params})
-    //         .then((res) => {
-    //             console.log("Name was updated");
-    //         })
-    //     }
-    // }, [debouncedValue]);
+    useEffect(() => {
+        if(debouncedValue) {
+        apiInstance.put(`lector/${lector.id}/update`, null, {params})
+            .then((res) => {
+
+            })
+        }
+    }, [debouncedValue]);
 
     return (
         <input type="text"

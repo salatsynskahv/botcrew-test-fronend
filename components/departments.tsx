@@ -34,9 +34,32 @@ function reducer(state: Department[] , action: any) {
             return updatedDepartments;
         }
     }
+
+    if (action.type === 'upgrade') {
+        if (state !== null) {
+            const updatedDepartments = state.map(department => {
+                if (payload.departmentIds.includes(department.id)) {
+                    return {
+                        ...department,
+                        lectors: department.lectors.map(lector => {
+                            if (lector.id === payload.lectorId) {
+                                return {
+                                    ...lector,
+                                    degree: payload.degree,
+                                    degreeId: payload.degreeId
+                                };
+                            }
+                            return lector;
+                        })
+                    };
+                }
+                return department;
+            });
+            return updatedDepartments;
+        }
+    }
     throw Error('Unknown action.');
 }
-
 
 export default function Departments() {
     // const [departments, setDepartments] = useState<Department[] | null>(null);

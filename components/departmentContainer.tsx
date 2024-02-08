@@ -14,11 +14,28 @@ export default function DepartmentContainer({department, updateDepartment}: {
 }) {
 
     const updateDegree = (lector: Lector) => {
-        apiInstance.put(`lector/${lector.id}/promote`).then(
-            res => {
-                //todo update general state
-            }
-        )
+        console.log(lector);
+        apiInstance.put(`lector/${lector.id}/promote`)
+            .then(
+                res => {
+                    const updatedLector: Lector = res.data
+                    if (updatedLector.degreeId > 0 && lector.degreeId > 0 && updatedLector.degreeId !== lector.degreeId) {
+                        const payload = {
+                            departmentIds: updatedLector.departmentIds,
+                            lectorId: updatedLector.id,
+                            degree: updatedLector.degree,
+                            degreeId: updatedLector.degreeId
+                        }
+                        updateDepartment({
+                            type: "upgrade",
+                            payload
+                        })
+                    }
+                }
+            )
+            .catch(err => {
+                console.log(err);
+            })
     }
 
     return (
@@ -38,7 +55,7 @@ export default function DepartmentContainer({department, updateDepartment}: {
                                 className={clsx(
                                     "rounded-md  py-3 px-4 m-2",
                                     lector.degreeId < config.maxDegreeCount && "bg-green-100 text-green-800",
-                                    lector.degreeId === undefined || lector.degreeId >= config.maxDegreeCount && "bg-gray-100 text-gray-600 disabled"
+                                    lector.degreeId >= config.maxDegreeCount && "bg-gray-100 text-gray-600 disabled"
                                 )}
                                 onClick={() => updateDegree(lector)}
                             >

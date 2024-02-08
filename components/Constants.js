@@ -1,6 +1,6 @@
 const prod = {
   url: {
-    API_BASE_URL: 'https://botscrew-test-backend.railway.internal',
+    API_BASE_URL: 'https://botscrew-test-backend-production.up.railway.app',
   },
   maxDegreeCount: 3
 }

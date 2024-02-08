@@ -7,7 +7,7 @@ import {apiInstance} from "@/components/axiosInstance";
 
 
 
-function reducer(state: Department[] | null, action: any) {
+function reducer(state: Department[] , action: any) {
     const payload = action.payload;
     if (action.type === 'init') {
         return payload;
@@ -57,16 +57,17 @@ export default function Departments() {
     return (
         <>
             {isLoading && <div>Loading</div>}
-            {!!departments &&
+            {departments  &&
                 <div className="w-full flex">
                     <div className="flex flex-wrap gap-7 justify-center">
                         {
-                            departments.map(item =>
-                                <DepartmentContainer
+                            (departments as Department[]).map(item => {
+                                return <DepartmentContainer
                                     key={item.id}
                                     department={item}
                                     updateDepartment={dispatch}
-                                />)
+                                />;
+                            })
                         }
                     </div>
                 </div>

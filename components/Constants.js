@@ -1,6 +1,6 @@
 const prod = {
   url: {
-    API_BASE_URL: 'https://wishmagic-backend-production.up.railway.app',
+    API_BASE_URL: 'https://botscrew-test-backend.railway.internal',
   },
   maxDegreeCount: 3
 }
@@ -14,4 +14,4 @@ const dev = {
 
 
 
-export const config =  dev
+export const config =  prod

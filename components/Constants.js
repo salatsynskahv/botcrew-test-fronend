@@ -14,4 +14,4 @@ const dev = {
 
 
 
-export const config =  prod
+export const config =  dev

@@ -9,5 +9,5 @@ export type Lector = {
     name: string;
     degree: string;
     degreeId: number;
-    departments: Department[]
+    departmentIds: number[]
 }

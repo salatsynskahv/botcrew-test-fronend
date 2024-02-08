@@ -12,7 +12,6 @@ export default function LectorNameInput({lector, updateDepartment}: {lector: Lec
         const payload = {
             departmentIds: lectorDepartments,
             lectorId: lectorId,
-            fieldName: "name",
             name: e.target.value
         };
 
@@ -29,14 +28,14 @@ export default function LectorNameInput({lector, updateDepartment}: {lector: Lec
     const debouncedValue = useDebounce(lectorName);
 
     const params = { name: debouncedValue };
-    useEffect(() => {
-        if(debouncedValue) {
-        apiInstance.put(`lector/${lector.id}/update`, null, {params})
-            .then((res) => {
-                console.log("Name was updated");
-            })
-        }
-    }, [debouncedValue]);
+    // useEffect(() => {
+    //     if(debouncedValue) {
+    //     apiInstance.put(`lector/${lector.id}/update`, null, {params})
+    //         .then((res) => {
+    //             console.log("Name was updated");
+    //         })
+    //     }
+    // }, [debouncedValue]);
 
     return (
         <input type="text"
@@ -44,7 +43,7 @@ export default function LectorNameInput({lector, updateDepartment}: {lector: Lec
                value={lector.name}
                onChange={(e) => {
                    setLectorName(e.target.value);
-                   updateName(e, lector.id, lector.departments.map(dep => dep.id));
+                   updateName(e, lector.id, lector.departmentIds);
                }}
         />
     )

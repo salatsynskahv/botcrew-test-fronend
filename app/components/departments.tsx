@@ -1,13 +1,13 @@
 "use client"
 
 import {useEffect, useReducer, useState} from "react";
-import DepartmentContainer from "@/components/departmentContainer";
-import {Department} from "@/components/model/model";
-import {apiInstance} from "@/components/axiosInstance";
+import DepartmentContainer from "@/app/components/departmentContainer";
+import {Department} from "@/app/model/model";
+import {apiInstance} from "@/app/api/axiosInstance";
+import {ProgressSpinner} from "primereact/progressspinner";
 
 
-
-function reducer(state: Department[] , action: any) {
+function reducer(state: Department[], action: any) {
     const payload = action.payload;
     if (action.type === 'init') {
         return payload;
@@ -79,8 +79,8 @@ export default function Departments() {
 
     return (
         <>
-            {isLoading && <div>Loading</div>}
-            {departments  &&
+        {isLoading && <div className="w-full h-screen flex justify-center items-center"><ProgressSpinner/></div>}
+            {departments &&
                 <div className="w-full flex">
                     <div className="flex flex-wrap gap-7 justify-center">
                         {
@@ -95,7 +95,5 @@ export default function Departments() {
                     </div>
                 </div>
             }
-
-
         </>);
 }

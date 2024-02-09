@@ -1,5 +1,5 @@
 
-import {config} from "@/components/Constants";
+import {config} from "@/app/constants";
 import axios, {AxiosInstance} from "axios";
 
 export const apiInstance: AxiosInstance = axios.create({

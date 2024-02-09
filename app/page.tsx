@@ -1,6 +1,4 @@
-import Image from "next/image";
-import {config} from "@/components/Constants";
-import Departments from "@/components/departments";
+import Departments from "@/app/components/departments";
 import {lusitana} from "@/app/ui/fonts";
 
 export default async function Home() {

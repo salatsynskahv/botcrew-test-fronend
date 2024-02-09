@@ -2,7 +2,6 @@ import {Lector} from "@/app/model/model";
 import {ChangeEvent, Dispatch, useEffect, useState} from "react";
 import {useDebounce} from "@/app/hooks/useDebouce";
 import {apiInstance} from "@/app/api/axiosInstance";
-import {InputMask, useMask} from "@react-input/mask";
 
 const degreeIdtoTitle = new Map();
 degreeIdtoTitle.set(1, "Dr.");
@@ -43,8 +42,6 @@ export default function LectorNameInput({lector, updateDepartment}: {
                 })
         }
     }, [debouncedValue]);
-
-    const inputRef = useMask({mask: 'DR. _', replacement: {_: /\w/}});
 
     function defineTitle(lector: Lector): string{
         return degreeIdtoTitle.get(lector.degreeId);

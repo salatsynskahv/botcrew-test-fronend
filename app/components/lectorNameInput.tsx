@@ -6,7 +6,7 @@ import {apiInstance} from "@/app/api/axiosInstance";
 const degreeIdtoTitle = new Map();
 degreeIdtoTitle.set(1, "Dr.");
 degreeIdtoTitle.set(2, "Dr.");
-degreeIdtoTitle.set(3, "Prof");
+degreeIdtoTitle.set(3, "Prof.");
 
 export default function LectorNameInput({lector, updateDepartment}: {
     lector: Lector,
